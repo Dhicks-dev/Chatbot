@@ -1,0 +1,13 @@
+const chatbotData = [
+    {
+      userMessage: "Hello",
+      chatbotResponse: "Hi! How can I assist you today?",
+    },
+    {
+      userMessage: "What's the weather like today?",
+      chatbotResponse: "The weather is sunny and 25 degrees Celsius.",
+    },
+    // Add more data as needed
+  ];
+
+  module.exports = chatbotData;
