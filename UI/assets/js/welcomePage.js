@@ -1,68 +1,55 @@
 var chatMessages = [];
+var inputValue = "";
+var outputValue = "";
 
 function processInput() {
+    inputValue = document.querySelector('.large-input').value;
+    outputValue = "You typed: " + inputValue;
 
-    var userInput = document.getElementById('large-input').value; // Getting the value
-
-
-
-    var outputResult = "You typed: " + userInput;  // Perform some processing
-
-
-
-    document.getElementById('output-box').value = outputResult;// show the result in the output-box
-
-
-
-    addToChatHistory(outputResult); // update the the message to the history
-
-
-
-    document.getElementById('large-input').value = "";// Clear the large-input
-
+    updateInputAndOutput();
+    addToChatHistory(outputValue);
+    inputValue = ""; // Clear the large-input
 }
-//-------------------------------------------------------------------
 
-function clearInputAndOutput() { // Clear both the large-input and output-box textareas
-
-    document.getElementById('large-input').value = "";
-    document.getElementById('output-box').value = "";
+function clearInputAndOutput() {
+    inputValue = "";
+    outputValue = "";
+    updateInputAndOutput();
 }
 
 function addToChatHistory(message) {
+    chatMessages.push(message);
 
-    chatMessages.push(message); //         update the the message to the history
-
-
-    if (chatMessages.length > 3) {  // only the last three messages
-        chatMessages.shift(); // Remove the oldest message
+    if (chatMessages.length > 3) {
+        chatMessages.shift();
     }
-
-
-    updateChatHistory();   // Update the chat
-}
-//----------------------------------------------------------------------
-
-function clearChatHistory() {
-
-    chatMessages = [];   // Clear the chat messages array
-
 
     updateChatHistory();
 }
-//-----------------------------------------------------------------
+
+function clearChatHistory() {
+    chatMessages = [];
+    updateChatHistory();
+}
+
+function updateInputAndOutput() {
+    var inputContainer = document.querySelector('.input-container');
+    var outputContainer = document.querySelector('.output-container');
+
+    var inputSource = document.getElementById('input-template').innerHTML;
+    var outputSource = document.getElementById('output-template').innerHTML;
+
+    var inputTemplate = Handlebars.compile(inputSource);
+    var outputTemplate = Handlebars.compile(outputSource);
+
+    inputContainer.innerHTML = inputTemplate({ inputValue: inputValue });
+    outputContainer.innerHTML = outputTemplate({ outputValue: outputValue });
+}
 
 function updateChatHistory() {
+    var chatHistoryContainer = document.getElementById('chat-history');
+    var source = document.getElementById('welcome-template').innerHTML;
+    var template = Handlebars.compile(source);
 
-    var chatHistoryContainer = document.getElementById('chat-history');  // Get the chat history container
-
-
-    chatHistoryContainer.innerHTML = "<h2>Chat History</h2>";  // Clear existing messages
-
-
-    for (var i = Math.max(chatMessages.length - 3, 0); i < chatMessages.length; i++) {// Add the latest three messages
-        var chatHistoryDiv = document.createElement('div');
-        chatHistoryDiv.textContent = chatMessages[i];
-        chatHistoryContainer.appendChild(chatHistoryDiv);
-    }
+    chatHistoryContainer.innerHTML = template({ chatMessages: chatMessages });
 }
