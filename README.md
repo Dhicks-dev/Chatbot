@@ -41,3 +41,5 @@ Code to Call Resting API
         console.error('Error:', error);
     }
 })();
+
+Curl Command: curl -X POST -d "question=what is the plural of moose" https://creativeassist-b1e65ab97095.herokuapp.com/gptquestion
