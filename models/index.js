@@ -18,5 +18,4 @@ chatHistory.belongsTo(User,  {
 
 
 
-
     module.exports = { User, chatHistory};

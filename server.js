@@ -3,6 +3,8 @@ const path = require("path");
 const express = require('express');
 const axios = require('axios');
 const session = require("express-session");
+const PORT = process.env.PORT || 3001;
+
 
 //const exphbs = require("express-handlebars");
 
@@ -16,13 +18,13 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 // Using Express's built-in middleware for URL-encoded data
 app.use(express.urlencoded({ extended: true }));
 
 // Static files
-app.use(express.static('PUBLIC'));
+app.use(express.static('UI'));
 
 // POST route for login
 app.post('/login', (req, res) => {

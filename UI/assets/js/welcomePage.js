@@ -2,6 +2,7 @@ var chatMessages = [];
 var inputValue = "";
 var outputValue = "";
 
+
 function processInput() {
     inputValue = document.querySelector('.large-input').value;
     outputValue = "You typed: " + inputValue;
@@ -53,3 +54,5 @@ function updateChatHistory() {
 
     chatHistoryContainer.innerHTML = template({ chatMessages: chatMessages });
 }
+
+
